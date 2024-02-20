@@ -4,6 +4,7 @@
 body {
   margin: 0;
   font-size: 1.2rem;
+  font-family: 'IBM Plex Mono', monospace;
 }
 header {
   background-color: navy;
@@ -13,7 +14,6 @@ header {
   text-align: center;
 }
 h1 {
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
 }
 form {
@@ -54,6 +54,7 @@ ul {
   padding: 0.5rem 0;
   justify-content: space-between;
 }
+
 .close {
   color: red;
   cursor: pointer;

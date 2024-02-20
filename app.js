@@ -1,13 +1,15 @@
 //* Globals
 
 const todoList = document.getElementById('todo-list');
+const userSelect = document.getElementById('user-todo');
+const form = document.querySelector('form');
 let todos = [];
 let users = [];
 
 //* Attach Events
 
 document.addEventListener('DOMContentLoaded', initApp);
-
+form.addEventListener('submit', handleSubmit);
 //* Basic logic
 
 function getUserName(userId) {
@@ -41,13 +43,31 @@ function printTodo({ id, userId, title, completed }) {
   todoList.prepend(li);
 }
 
+function createUserOption(user) {
+  const option = document.createElement('option');
+  option.value = user.id;
+  option.innerText = user.name;
+
+  userSelect.append(option);
+}
+
 //* Event logic
 
 function initApp() {
   Promise.all([getAllTodos(), getAllUsers()]).then((values) => {
     [todos, users] = values;
+
+    //!
     todos.forEach((todo) => printTodo(todo));
+    users.forEach((user) => createUserOption(user));
   });
+}
+
+function handleSubmit(event) {
+  event.preventDefault();
+
+  console.log(form.todo);
+  console.log(form.user);
 }
 
 //* Async logic
@@ -64,4 +84,18 @@ async function getAllUsers() {
   const data = await response.json();
 
   return data;
+}
+
+async function createTodo(todo) {
+  const response = await fetch('https://jsonplaceholder.typicode.com/todos', {
+    method: 'POST',
+    body: JSON.stringify(todo),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const todoId = await response.json();
+  console.log(todoId);
+
+  printTodo({ id: todoId, ...todo });
 }
