@@ -66,8 +66,11 @@ function initApp() {
 function handleSubmit(event) {
   event.preventDefault();
 
-  console.log(form.todo);
-  console.log(form.user);
+  createTodo({
+    userId: Number(form.user.value),
+    title: form.todo.value,
+    completed: false,
+  });
 }
 
 //* Async logic
@@ -94,8 +97,7 @@ async function createTodo(todo) {
       'Content-Type': 'application/json',
     },
   });
-  const todoId = await response.json();
-  console.log(todoId);
+  const newTodo = await response.json();
 
-  printTodo({ id: todoId, ...todo });
+  printTodo(newTodo);
 }
