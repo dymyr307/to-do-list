@@ -59,7 +59,10 @@ ul {
   color: red;
   cursor: pointer;
   font-weight: bolder;
+  width: 2rem;
+  padding: 10px 0 0 10px;
 }
 .close:hover {
   color: tomato;
+  font-size: x-large;
 }
